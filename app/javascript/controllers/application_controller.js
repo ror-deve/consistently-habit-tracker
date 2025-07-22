@@ -1,0 +1,8 @@
+
+
+const ApplicationController = () => {
+  
+  
+};
+
+export { ApplicationController };
