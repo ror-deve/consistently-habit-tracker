@@ -1,8 +1,8 @@
 class HabitsController < ApplicationController
-  before_action :set_habit, only: [:edit, :update, :destroy]
+  before_action :set_habit, only: [:edit, :update, :destroy, :show]
 
   def index
-    @habits = current_user.habits
+    @habits = current_user.habits.includes(:habit_logs)
   end
 
   def new
@@ -18,8 +18,9 @@ class HabitsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def show; end
+
+  def edit; end
 
   def update
     if @habit.update(habit_params)
@@ -31,7 +32,10 @@ class HabitsController < ApplicationController
 
   def destroy
     @habit.destroy
-    redirect_to habits_path, notice: "Habit deleted!"
+    respond_to do |format|
+      format.html { redirect_to habits_path, notice: "Habit deleted!" }
+      format.turbo_stream
+    end
   end
 
   private

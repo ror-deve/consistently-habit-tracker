@@ -1,13 +1,65 @@
-<h1>Your Habits</h1>
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <div class="bg-white rounded-md shadow-sm mb-10 px-4 sm:px-6 lg:px-8 py-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <nav class="text-sm text-gray-500 mb-1">
+          <ol class="list-reset flex space-x-2">
+            <li><a href="/" class="hover:text-blue-600 font-medium">Dashboard</a></li>
+            <li>/</li>
+            <li class="text-gray-700 font-semibold">Habits</li>
+          </ol>
+        </nav>
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Your Habits</h1>
+      </div>
 
-<%= link_to "New Habit", new_habit_path, class: "btn btn-primary" %>
+      <div>
+        <%= link_to "➕ New Habit", new_habit_path, class: "inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-5 py-2 rounded-md shadow-md transition-all" %>
+      </div>
+    </div>
+  </div>
 
-<ul>
-  <% @habits.each do |habit| %>
-    <li>
-      <strong><%= habit.name %></strong> - <%= habit.description %>
-      <%= link_to "Edit", edit_habit_path(habit) %> |
-      <%= link_to "Delete", habit_path(habit), method: :delete, data: { confirm: "Are you sure?" } %>
-    </li>
-  <% end %>
-</ul>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <% @habits.each do |habit| %>
+      <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col border border-gray-100 hover:border-blue-500 transition duration-300">
+        <h2 class="text-2xl font-bold text-gray-900 mb-1"><%= habit.name %></h2>
+        <p class="text-gray-600 text-sm mb-4 line-clamp-3"><%= habit.description %></p>
+
+        <!-- Stats Badges -->
+        <div id="habit_<%= habit.id %>_stats" class="flex flex-wrap gap-2 mb-4">
+          <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-medium">Streak: <%= habit.current_streak %> days</span>
+          <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-medium">Longest: <%= habit.longest_streak %> days</span>
+          <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-medium">📈 <%= habit.consistency_percentage %>%</span>
+        </div>
+
+        <div class="grid grid-cols-7 gap-1 mb-4">
+          <% (Date.today - 29.days..Date.today).each do |date| %>
+            <% done = habit.done_dates_lookup.include?(date) %>
+            <div class="w-7 h-7 rounded text-center text-xs flex items-center justify-center font-medium
+                        <%= done ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-400' %>" 
+                 title="<%= date.strftime('%b %d, %Y') %> - <%= done ? 'Done' : 'Missed' %>">
+              <%= date.day %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="mt-auto">
+          <div class="flex justify-between gap-2 mb-3">
+            <%= link_to "👁 Show", habit_path(habit), class: "bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded-md text-sm font-medium shadow-sm" %>
+            <%= link_to "✏️ Edit", edit_habit_path(habit), class: "bg-blue-100 hover:bg-blue-200 text-blue-800 px-3 py-1 rounded-md text-sm font-medium shadow-sm" %>
+            <%= button_to "🗑 Delete", habit_path(habit),
+            method: :delete,
+            data: { confirm: "Are you sure you want to delete this habit?" },
+            class: "bg-red-100 hover:bg-red-200 text-red-700 px-3 py-1 rounded-md text-sm font-medium shadow-sm" %>
+          </div>
+
+          <%= form_with url: habit_habit_logs_path(habit_id: habit.id), method: :post, local: true do %>
+            <div class="flex items-center gap-2">
+              <%= date_field_tag :done_on, Date.today, class: "border border-gray-300 rounded-md px-3 py-1 text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+              <%= submit_tag "✅", class: "bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md text-sm font-semibold transition" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

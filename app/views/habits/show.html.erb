@@ -1,0 +1,24 @@
+<div class="max-w-xl mx-auto px-4 py-8">
+  <h2 class="text-3xl font-extrabold text-gray-900 mb-6">
+    <%= @habit.name %>: Progress (Last 30 Days)
+  </h2>
+
+  <div class="grid grid-cols-7 gap-2 select-none" role="list" aria-label="Habit progress calendar">
+    <% (Date.today - 29.days..Date.today).each do |date| %>
+      <% done = @habit.done_dates_lookup.include?(date) %>
+      <div
+        class="w-10 h-10 flex items-center justify-center rounded-md text-sm font-semibold cursor-default
+               <%= done ? 'bg-green-600 text-white shadow-md' : 'bg-red-400 text-white' %>"
+        title="<%= date.strftime('%b %d, %Y') %> - <%= done ? 'Done' : 'Missed' %>"
+        role="listitem"
+        aria-label="<%= date.strftime('%B %d, %Y') %>: <%= done ? 'Completed' : 'Missed' %>"
+      >
+        <%= date.day %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mt-8">
+    <%= link_to "← Back", habits_path, class: "inline-block text-blue-600 hover:text-blue-800 font-semibold transition" %>
+  </div>
+</div>
