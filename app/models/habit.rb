@@ -8,7 +8,7 @@ class Habit < ApplicationRecord
   validates :name, presence: true
 
   def done_dates
-    habit_logs.pluck(:done_on).sort
+    habit_logs.select(:done_on).distinct.pluck(:done_on).sort
   end
 
   def current_streak
