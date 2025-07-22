@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "habit_#{@habit.id}_stats" do %>
+  <%= render partial: "habits/stats", locals: { habit: @habit } %>
+<% end %>

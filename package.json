@@ -1,0 +1,20 @@
+{
+  "name": "consistently-habit-tracker",
+  "private": true,
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/stimulus-webpack-helpers": "^1.0.1",
+    "@hotwired/turbo": "^8.0.13",
+    "@hotwired/turbo-rails": "^8.0.4",
+    "@tailwindcss/cli": "^4.1.11"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "esbuild": "^0.25.8",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.11"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets"
+  }
+}

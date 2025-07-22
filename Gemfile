@@ -25,6 +25,7 @@ gem "redis", ">= 4.0.1"
 gem 'sidekiq'
 gem 'devise'
 gem 'hotwire-rails'
+gem 'sidekiq-scheduler'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -56,6 +57,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem 'letter_opener'
 
   # Highlight the fine-grained location where an error occurred [https://github.com/ruby/error_highlight]
   gem "error_highlight", ">= 0.4.0", platforms: [ :ruby ]
@@ -66,3 +68,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# gem "tailwindcss-ruby", "~> 4.1"
+
+gem "cssbundling-rails", "~> 1.4"

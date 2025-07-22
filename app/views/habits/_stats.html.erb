@@ -1,0 +1,5 @@
+<div id="habit_<%= habit.id %>_stats" class="flex flex-wrap gap-2 mb-4">
+  <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-medium">Streak: <%= habit.current_streak %> days</span>
+  <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-medium">Longest: <%= habit.longest_streak %> days</span>
+  <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-medium">📈 <%= habit.consistency_percentage %>%</span>
+</div>
