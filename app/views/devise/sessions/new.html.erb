@@ -1,0 +1,29 @@
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-100 to-purple-200">
+  <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
+    <h2 class="text-2xl font-bold text-center text-indigo-600 mb-6">Log in to Your Account</h2>
+    <%= form_with scope: :user, url: user_session_path, class: "space-y-4", local: true do |f| %>
+      <div>
+        <%= f.label :email, class: "block text-sm font-medium text-gray-700" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "mt-1 block w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      </div>
+
+      <div>
+        <%= f.label :password, class: "block text-sm font-medium text-gray-700" %>
+        <%= f.password_field :password, autocomplete: "current-password", class: "mt-1 block w-full px-4 py-2 border rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500" %>
+      </div>
+
+      <div class="flex items-center">
+        <%= f.check_box :remember_me, class: "mr-2" %>
+        <%= f.label :remember_me, class: "text-sm text-gray-600" %>
+      </div>
+
+      <%= f.submit "Log in", class: "w-full py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition" %>
+    <% end %>
+
+    <div class="text-sm text-center mt-4 space-x-2">
+      <%= link_to "Sign up", new_user_registration_path, class: "text-blue-600 hover:underline" %>
+      |
+      <%= link_to "Forgot your password?", new_user_password_path, class: "text-blue-600 hover:underline" %>
+    </div>
+  </div>
+</div>

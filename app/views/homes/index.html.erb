@@ -1,9 +1,26 @@
-<h1>Welcome to Habit Tracker</h1>
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-300 px-4 py-12">
+  <div class="bg-white shadow-2xl rounded-3xl p-12 w-full max-w-3xl text-center space-y-8 border border-indigo-200">
+    
+    <h1 class="text-4xl font-extrabold text-indigo-700 tracking-tight">🌱 Welcome to Habit Tracker</h1>
+    <p class="text-lg text-gray-600">Build better habits, one day at a time.</p>
 
-<% if user_signed_in? %>
-  <p>Hello, <%= current_user.email %>!</p>
-  <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { turbo_method: :delete } %>
-<% else %>
-  <%= link_to "Sign Up", new_user_registration_path %> |
-  <%= link_to "Login", new_user_session_path %>
-<% end %>
+    <% if user_signed_in? %>
+      <p class="text-xl text-gray-800">
+        Hello, <span class="font-semibold text-indigo-600"><%= current_user.email %></span> 👋
+      </p>
+
+      <%= link_to "View My Habits", habits_path, class: "inline-block mt-6 px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-md transition duration-300" %>
+
+      <div class="mt-4">
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "text-red-500 text-sm hover:underline" %>
+      </div>
+
+    <% else %>
+      <div class="flex justify-center space-x-6 mt-6">
+        <%= link_to "Sign Up", new_user_registration_path, class: "px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl shadow-lg transition duration-300" %>
+        <%= link_to "Login", new_user_session_path, class: "px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-xl shadow-lg transition duration-300" %>
+      </div>
+    <% end %>
+
+  </div>
+</div>
