@@ -53,7 +53,7 @@ COPY . .
 RUN bundle exec bootsnap precompile app/ lib/
 
 # Precompile Rails assets (with dummy secret key for production)
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+# RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 # Final stage - minimal production image
 FROM base
