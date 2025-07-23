@@ -40,6 +40,13 @@ RUN bundle config set frozen false && \
 # Copy application code
 COPY . .
 
+
+# Install JS dependencies
+RUN yarn install
+
+# Build CSS and JS assets
+RUN yarn build
+
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
 
