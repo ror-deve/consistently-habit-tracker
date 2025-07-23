@@ -8,7 +8,7 @@ class Habit < ApplicationRecord
   validates :name, presence: true
 
   def done_dates
-    habit_logs.select(:done_on).distinct.pluck(:done_on).sort
+    @done_dates ||= habit_logs.pluck(:done_on).uniq.sort
   end
 
   def current_streak
@@ -43,10 +43,14 @@ class Habit < ApplicationRecord
   end
 
   def consistency_percentage
-    total_days = (Date.today - created_at.to_date).to_i + 1
-    return 0 if total_days <= 0
+    return 0 if done_dates.empty?
 
-    ((done_dates.count.to_f / total_days) * 100).round(2)
+    start_date = done_dates.min
+    total_days = (Date.today - start_date).to_i + 1
+
+    completed_days = done_dates.count
+    percentage = (completed_days.to_f / total_days) * 100
+    [percentage.round(2), 100.0].min
   end
 
   def done_dates_lookup
