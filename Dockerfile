@@ -46,8 +46,8 @@ RUN bundle config set frozen false && \
 COPY . .
 
 # Install JS dependencies and build assets (Tailwind, Stimulus, etc.)
-RUN yarn install
-RUN yarn build
+# RUN yarn install
+# RUN yarn build
 
 # Precompile bootsnap cache to speed app boot
 RUN bundle exec bootsnap precompile app/ lib/
